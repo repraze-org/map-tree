@@ -9,7 +9,9 @@
         "lint-fix": "eslint **/*.js --fix"
     },
     "husky": {
-        "pre-commit": "npm lint; npm test"
+        "hooks": {
+            "pre-commit": "npm run lint && npm run test"
+        }
     },
     "author": "Thomas Dubosc (http://repraze.com)",
     "license": "MIT",
