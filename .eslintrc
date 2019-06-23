@@ -1,0 +1,93 @@
+{
+    "extends": ["eslint:recommended"],
+    "env": {
+        "browser": false,
+        "mocha": true,
+        "node": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "rules": {
+        "max-len": [
+            "error",
+            {
+                "code": 120,
+                "tabWidth": 4,
+                "ignoreComments": true,
+                "ignoreTrailingComments": true,
+                "ignoreUrls": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true,
+                "ignoreRegExpLiterals": true
+            }
+        ],
+        "indent": ["error", 4],
+        "one-var": ["error", "never"],
+        "semi": ["error", "always"],
+        "semi-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "keyword-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": false,
+                "overrides": {
+                    "const": {"after": true},
+                    "let": {"after": true},
+                    "return": {"after": true, "before": true},
+                    "import": {"after": true},
+                    "export": {"after": true},
+                    "from": {"before": true, "after": true},
+                    "as": {"after": true, "before": true},
+                    "of": {"after": true, "before": true},
+                    "this": {"before": true},
+                    "throw": {"after": true, "before": true},
+                    "case": {"after": true},
+                    "default": {"after": true, "before": true}
+                }
+            }
+        ],
+        "key-spacing": [
+            "error",
+            {
+                "align": "value",
+                "beforeColon": false,
+                "afterColon": true
+            }
+        ],
+        "space-before-function-paren": ["error", "never"],
+        "object-curly-spacing": ["error", "never"],
+        "array-bracket-spacing": ["error", "never"],
+        "arrow-spacing": ["error", {"before": false, "after": false}],
+        "arrow-body-style": ["error", "as-needed"],
+        "space-in-parens": [2, "never"],
+        "space-before-blocks": ["error", "never"],
+
+        "spaced-comment": "off",
+        "space-infix-ops": "error",
+        "no-undef": "error",
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "all",
+                "args": "none",
+                "varsIgnorePattern": "logger|assert"
+            }
+        ],
+        "no-trailing-spaces": [
+            "error",
+            {
+                "skipBlankLines": true,
+                "ignoreComments": true
+            }
+        ],
+        "no-console": "off"
+    }
+}
