@@ -1,7 +1,7 @@
 const chai = require("chai");
 const expect = chai.expect;
-const MapTree = require("../src/map-tree");
-const MapTreeIterator = require("../src/map-tree-iterator");
+const MapTree = require("../");
+const {MapTreeIterator} = MapTree;
 
 // Tester
 
