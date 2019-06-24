@@ -6,7 +6,7 @@ MapTree data structure, allows a Map to lookup elements in its Map children in a
 
 ## Installation
 
-    npm install micromand --save
+    npm install map-tree --save
 
 ## Usage
 
