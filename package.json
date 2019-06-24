@@ -1,6 +1,6 @@
 {
     "name": "map-tree",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "MapTree data structure",
     "main": "index.js",
     "scripts": {
