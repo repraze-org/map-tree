@@ -72,13 +72,25 @@ describe("tree-map", function(){
     });
 
     describe("children", function(){
-        it("should return child", function(){
+        it("should get child", function(){
             const tmc1 = new MapTree();
             const tmc2 = new MapTree();
             const tm = new MapTree(undefined, [tmc1, tmc2]);
             expect(tm.children.size).to.equal(2);
             expect(Array.from(tm.children.values())[0]).to.equal(tmc1);
             expect(Array.from(tm.children.values())[1]).to.equal(tmc2);
+        });
+        it("should set child", function(){
+            const tmc1 = new MapTree();
+            const tmc2 = new MapTree();
+            const tm = new MapTree(undefined, [tmc1, tmc2]);
+            expect(tm.children.size).to.equal(2);
+            expect(Array.from(tm.children.values())[0]).to.equal(tmc1);
+            expect(Array.from(tm.children.values())[1]).to.equal(tmc2);
+            tm.children = [tmc2, tmc1, tmc2];
+            expect(tm.children.size).to.equal(2);
+            expect(Array.from(tm.children.values())[0]).to.equal(tmc2);
+            expect(Array.from(tm.children.values())[1]).to.equal(tmc1);
         });
         it("should add child", function(){
             const tmc = new MapTree();
@@ -95,6 +107,22 @@ describe("tree-map", function(){
             expect(Array.from(tm.children.values())[0]).to.equal(tmc);
             tm.children.delete(tmc);
             expect(tm.children.size).to.equal(0);
+        });
+        it("should throw on incorrect child", function(){
+            expect(()=>new MapTree(undefined, [null])).to.throw(TypeError);
+            expect(()=>new MapTree(undefined, [undefined])).to.throw(TypeError);
+            expect(()=>new MapTree(undefined, [NaN])).to.throw(TypeError);
+            expect(()=>new MapTree(undefined, [{}])).to.throw(TypeError);
+            expect(()=>new MapTree(undefined, [0])).to.throw(TypeError);
+            expect(()=>new MapTree(undefined, [new Map()])).to.throw(TypeError);
+
+            const tm = new MapTree();
+            expect(()=>tm.children.add(null)).to.throw(TypeError);
+            expect(()=>tm.children.add(undefined)).to.throw(TypeError);
+            expect(()=>tm.children.add(NaN)).to.throw(TypeError);
+            expect(()=>tm.children.add({})).to.throw(TypeError);
+            expect(()=>tm.children.add(0)).to.throw(TypeError);
+            expect(()=>tm.children.add(new Map())).to.throw(TypeError);
         });
     });
 
@@ -178,7 +206,8 @@ describe("tree-map", function(){
         });
 
         it("should return element provided key with traverse", function(){
-            const tmc1 = new MapTree([["f", 7]]);
+            const tmc11 = new MapTree([["h", 10]]);
+            const tmc1 = new MapTree([["f", 7], ["g", 9]], [tmc11]);
             const tmc2 = new MapTree([["a", 1], ["b", 2], ["e", 5], ["f", 8]]);
             const tm = new MapTree([["c", 3], ["d", 4], ["e", 6]], [tmc1, tmc2]);
             expect(tm.get("a")).to.equal(undefined);
@@ -187,6 +216,9 @@ describe("tree-map", function(){
             expect(tm.get("d")).to.equal(4);
             expect(tm.get("e")).to.equal(6);
             expect(tm.get("f")).to.equal(undefined);
+            expect(tm.get("g")).to.equal(undefined);
+            expect(tm.get("h")).to.equal(undefined);
+            expect(tm.get("i")).to.equal(undefined);
 
             expect(tm.get("a", true)).to.equal(1);
             expect(tm.get("b", true)).to.equal(2);
@@ -194,6 +226,9 @@ describe("tree-map", function(){
             expect(tm.get("d", true)).to.equal(4);
             expect(tm.get("e", true)).to.equal(6);
             expect(tm.get("f", true)).to.equal(7);
+            expect(tm.get("g", true)).to.equal(9);
+            expect(tm.get("h", true)).to.equal(10);
+            expect(tm.get("i", true)).to.equal(undefined);
         });
     });
 
@@ -206,17 +241,29 @@ describe("tree-map", function(){
         });
 
         it("should return if contains key with traverse", function(){
-            const tmc = new MapTree([["a", 1], ["b", 2]]);
-            const tm = new MapTree([["c", 3], ["d", 4]], [tmc]);
+            const tmc11 = new MapTree([["h", 10]]);
+            const tmc1 = new MapTree([["f", 7], ["g", 9]], [tmc11]);
+            const tmc2 = new MapTree([["a", 1], ["b", 2], ["e", 5], ["f", 8]]);
+            const tm = new MapTree([["c", 3], ["d", 4], ["e", 6]], [tmc1, tmc2]);
             expect(tm.has("a")).to.equal(false);
             expect(tm.has("b")).to.equal(false);
             expect(tm.has("c")).to.equal(true);
             expect(tm.has("d")).to.equal(true);
+            expect(tm.has("e")).to.equal(true);
+            expect(tm.has("f")).to.equal(false);
+            expect(tm.has("g")).to.equal(false);
+            expect(tm.has("h")).to.equal(false);
+            expect(tm.has("i")).to.equal(false);
 
             expect(tm.has("a", true)).to.equal(true);
             expect(tm.has("b", true)).to.equal(true);
             expect(tm.has("c", true)).to.equal(true);
             expect(tm.has("d", true)).to.equal(true);
+            expect(tm.has("e", true)).to.equal(true);
+            expect(tm.has("f", true)).to.equal(true);
+            expect(tm.has("g", true)).to.equal(true);
+            expect(tm.has("h", true)).to.equal(true);
+            expect(tm.has("i", true)).to.equal(false);
         });
     });
 
@@ -307,6 +354,28 @@ describe("tree-map", function(){
             expect(Array.from(tm.values()).length).to.equal(0);
             expect(Array.from(tm.values(true)).length).to.equal(3);
             expect(Array.from(tm.values(true))).to.deep.equal([1, 2, 5]);
+        });
+    });
+
+    describe("[Symbol.iterator]", function(){
+        it("should return iterator", function(){
+            const tm = new MapTree([["a", 1], ["b", 2], ["c", 3]]);
+            const iterator = tm[Symbol.iterator]();
+            expect(iterator).to.instanceof(MapTreeIterator);
+            expect(iterator.next()).to.deep.equal({done: false, value: ["a", 1]});
+            expect(iterator.next()).to.deep.equal({done: false, value: ["b", 2]});
+            expect(iterator.next()).to.deep.equal({done: false, value: ["c", 3]});
+        });
+        it("should be iterable", function(){
+            const tm = new MapTree([["a", 1], ["b", 2], ["c", 3]]);
+            let iteration = 0;
+            for(let [key, value] of tm){
+                if(key === "a") expect(value).to.equal(1);
+                if(key === "b") expect(value).to.equal(2);
+                if(key === "c") expect(value).to.equal(3);
+                iteration += 1;
+            }
+            expect(iteration).to.equal(3);
         });
     });
 });
