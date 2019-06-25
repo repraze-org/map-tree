@@ -378,4 +378,23 @@ describe("tree-map", function(){
             expect(iteration).to.equal(3);
         });
     });
+
+    describe("case study", function(){
+        it("should be simple", function(){
+            const foodMap = new MapTree([["steak", {value: 1}]]);
+
+            const fruitMap = new MapTree();
+            fruitMap.set("banana", {value: 2});
+            fruitMap.set("apple", {value: 3});
+
+            foodMap.children.add(fruitMap);
+            foodMap.get("banana", true); // {value: 2}
+            foodMap.has("steak"); // true
+            foodMap.has("apple"); // false (not traversing)
+
+            expect(foodMap.get("banana", true)).to.deep.equal({value: 2});
+            expect(foodMap.has("steak")).to.deep.equal(true);
+            expect(foodMap.has("apple")).to.deep.equal(false);
+        });
+    });
 });

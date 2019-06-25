@@ -1,7 +1,7 @@
 {
     "name": "map-tree",
     "version": "1.0.2",
-    "description": "MapTree data structure",
+    "description": "Create Map trees usefull for property inheritance",
     "main": "index.js",
     "scripts": {
         "test": "mocha --color 'test/**/*.test.js'",
