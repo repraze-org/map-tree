@@ -38,22 +38,33 @@ new MapTree([iterable [, children]]);
 ```
 
 -   **iterable** : Array or iterable object of key-value pairs.
+
 -   **children** : Array or iterable object of MapTree objects defining the children of the new object.
 
 ## Properties
 
--   **Map.prototype.size** : Returns the number of key/value pairs in the MapTree object without traversing.
+-   **Map.prototype.size** : Returns the number of key/value pairs in the MapTree object. It does not include children.
+
 -   **Map.prototype.children** : Returns the MapTree children Set. The Set can be changed to add/remove/clear children. Property can be set provided an array or iterable object of MapTree objects to replace all children.
 
 ## Methods
 
--   **Map.prototype.clear()** : TODO
--   **Map.prototype.delete(key)** : TODO
--   **Map.prototype.entries(\[traverse\])** : TODO
--   **Map.prototype.forEach(callbackFn \[, traverse \[, thisArg\]\])** : TODO
--   **Map.prototype.get(key\[, traverse\])** : TODO
--   **Map.prototype.has(key\[, traverse\])** : TODO
--   **Map.prototype.keys(\[traverse\])** : TODO
--   **Map.prototype.set(key, value)** : TODO
--   **Map.prototype.values(\[traverse\])** : TODO
--   **Map.prototype\[\@\@iterator\]()** : TODO
+-   **Map.prototype.clear()** : Removes all key/value pairs from the MapTree object. Does not clear the children.
+
+-   **Map.prototype.delete(key)** : Removes element from MapTree and returns true if the element did not exist, or false if the element did not. It will not delete from the children.
+
+-   **Map.prototype.entries(\[traverse\])** : Returns a new Iterator object that contains an array of [key, value] for each element in the MapTree object in insertion order. If traverse is true, the Iterator will include children [key, value] in a BFS order.
+
+-   **Map.prototype.forEach(callbackFn \[, traverse \[, thisArg\]\])** : Calls callbackFn once for each key-value pair present in the MapTree object, in insertion order. If traverse is true, key-value pair present in children will be provided in BFS order. If a thisArg parameter is provided to forEach, it will be used as the this value for each callback.
+
+-   **Map.prototype.get(key\[, traverse\])** : Returns the value associated to the key, or undefined if there is none. If traverse is true, the key will be matched with children in BFS order.
+
+-   **Map.prototype.has(key\[, traverse\])** : Returns a boolean asserting whether a value has been associated to the key in the MapTree object or not. If traverse is true, the key will be matched with children in BFS order.
+
+-   **Map.prototype.keys(\[traverse\])** : Returns a new Iterator object that contains the keys for each element in the MapTree object in insertion order. If traverse is true, the Iterator will include children keys in a BFS order.
+
+-   **Map.prototype.set(key, value)** : Sets the value for the key in the MapTree object. Returns the MapTree object.
+
+-   **Map.prototype.values(\[traverse\])** : Returns a new Iterator object that contains the values for each element in the MapTree object in insertion order. If traverse is true, the Iterator will include children values in a BFS order.
+
+-   **Map.prototype\[\@\@iterator\]()** : Returns a new Iterator object that contains an array of [key, value] for each element in the MapTree object in insertion order. It does not include children.
