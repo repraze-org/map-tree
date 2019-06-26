@@ -50,7 +50,7 @@ new MapTree([iterable [, children]]);
 -   **Map.prototype.clear()** : TODO
 -   **Map.prototype.delete(key)** : TODO
 -   **Map.prototype.entries(\[traverse\])** : TODO
--   **Map.prototype.forEach(callbackFn \[, traverse \[, thisArg\]\])** : TODO not supported
+-   **Map.prototype.forEach(callbackFn \[, traverse \[, thisArg\]\])** : TODO
 -   **Map.prototype.get(key\[, traverse\])** : TODO
 -   **Map.prototype.has(key\[, traverse\])** : TODO
 -   **Map.prototype.keys(\[traverse\])** : TODO

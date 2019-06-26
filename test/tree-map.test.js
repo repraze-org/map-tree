@@ -154,6 +154,65 @@ describe("tree-map", function(){
         });
     });
 
+    describe("forEach", function(){
+        it("should iterate elements", function(){
+            const tmc = new MapTree([["c", 3]]);
+            const tm = new MapTree([["a", 1], ["b", 2]], [tmc]);
+            let count = 0;
+            const self = this;
+            tm.forEach((value, key, map)=>{
+                expect(map).to.equal(tm);
+                expect(this).to.equal(self);
+                if(key === "a") expect(value).to.equal(1);
+                if(key === "b") expect(value).to.equal(2);
+                count++;
+            });
+            expect(count).to.equal(2);
+        });
+
+        it("should iterate elements and traverse", function(){
+            const tmc = new MapTree([["c", 3]]);
+            const tm = new MapTree([["a", 1], ["b", 2]], [tmc]);
+            let count = 0;
+            const self = this;
+            tm.forEach((value, key, map)=>{
+                expect(map).to.equal(tm);
+                expect(this).to.equal(self);
+                if(key === "a") expect(value).to.equal(1);
+                if(key === "b") expect(value).to.equal(2);
+                if(key === "c") expect(value).to.equal(3);
+                count++;
+            }, true);
+            expect(count).to.equal(3);
+        });
+
+        it("should iterate elements and bind this", function(){
+            const tmc = new MapTree([["c", 3]]);
+            const tm = new MapTree([["a", 1], ["b", 2]], [tmc]);
+            let count = 0;
+            const self = this;
+            const thisArg = {};
+            tm.forEach(
+                function(value, key, map){
+                    expect(map).to.equal(tm);
+                    expect(this).to.not.equal(self);
+                    expect(this).to.equal(thisArg);
+                    if(key === "a") expect(value).to.equal(1);
+                    if(key === "b") expect(value).to.equal(2);
+                    count++;
+                },
+                false,
+                thisArg
+            );
+            expect(count).to.equal(2);
+        });
+
+        it("should throw without callbackFn", function(){
+            const tm = new MapTree([["a", 1], ["b", 2]]);
+            expect(()=>tm.forEach()).to.throw(TypeError);
+        });
+    });
+
     describe("entries", function(){
         it("should return iterator of elements", function(){
             const val = [["a", 1], ["b", 2]];
