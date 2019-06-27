@@ -9,6 +9,8 @@ MapTree structure, allows Maps to lookup elements in its Map children in a BFS w
 -   Similar interface to the Map you love
 -   Uses Map and Set under the hood to keep lookups and changes fast
 -   Fundamental algorithm used is [Breadth-first search (BSF)](https://en.wikipedia.org/wiki/Breadth-first_search)
+-   Does not test for cycles, thus does not support graphs
+-   Dependency free
 
 ## Installation
 
@@ -29,6 +31,10 @@ foodMap.children.add(fruitMap);
 foodMap.get("banana", true); // {value: 2}
 foodMap.has("steak"); // true
 foodMap.has("apple"); // false (not traversing)
+
+for (let [key, value] of foodMap.entries(true)) {
+    // will traverse children too!
+}
 ```
 
 ## Syntax
