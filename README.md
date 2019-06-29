@@ -1,6 +1,6 @@
 # map-tree
 
-[![npm](https://img.shields.io/npm/v/map-tree.svg?logo=npm&style=flat-square)](https://www.npmjs.com/package/map-tree) [![Travis (.org)](https://img.shields.io/travis/repraze-org/map-tree.svg?logo=travis&style=flat-square)](https://travis-ci.org/repraze-org/map-tree) [![Codecov](https://img.shields.io/codecov/c/github/repraze-org/map-tree.svg?logo=codecov&style=flat-square)](https://codecov.io/gh/repraze-org/map-tree)
+[![npm](https://img.shields.io/npm/v/map-tree.svg?logo=npm&style=flat-square)](https://www.npmjs.com/package/map-tree) [![Travis (.org)](https://img.shields.io/travis/repraze-org/map-tree.svg?logo=travis&style=flat-square)](https://travis-ci.org/repraze-org/map-tree) [![Codecov](https://img.shields.io/codecov/c/github/repraze-org/map-tree.svg?logo=codecov&style=flat-square)](https://codecov.io/gh/repraze-org/map-tree) [![GitHub](https://img.shields.io/github/license/repraze-org/map-tree.svg?logo=github&style=flat-square)](https://github.com/repraze-org/map-tree) [![npm](https://img.shields.io/npm/dm/map-tree.svg?logo=npm&style=flat-square)](https://www.npmjs.com/package/map-tree)
 
 MapTree structure, allows Maps to lookup elements in its Map children in a BFS way.
 
