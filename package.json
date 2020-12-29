@@ -7,8 +7,7 @@
         "test": "mocha --color 'test/**/*.test.js'",
         "lint": "eslint **/*.js",
         "lint-fix": "eslint **/*.js --fix",
-        "coverage": "nyc --reporter=lcov npm run test",
-        "report": "codecov"
+        "coverage": "nyc --reporter=lcov npm run test"
     },
     "husky": {
         "hooks": {
@@ -19,7 +18,6 @@
     "license": "MIT",
     "devDependencies": {
         "chai": "^4.2.0",
-        "codecov": "^3.8.1",
         "eslint": "^6.8.0",
         "husky": "^2.7.0",
         "mocha": "^8.2.1",
